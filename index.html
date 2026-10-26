@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0d0b">
+  <meta name="description" content="Интерактивный учебник Python для начинающих: понятная теория, примеры из жизни, код и практика.">
+  <title>PyStart — изучай Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#home" aria-label="PyStart — главная"><span class="brand-mark"><i data-lucide="terminal"></i></span><span>py<span class="accent">start</span><small>PYTHON SCHOOL</small></span></a>
+      <div class="sidebar-label">ТВОЙ МАРШРУТ</div>
+      <div class="progress-card"><div class="progress-row"><span>Общий прогресс</span><b id="progress-percent">0%</b></div><div class="progress-track"><span id="progress-bar"></span></div><small id="progress-caption">Начни с первого урока</small></div>
+      <nav id="lesson-nav" class="lesson-nav" aria-label="Темы курса"></nav>
+      <div class="sidebar-bottom"><span class="status-dot"></span> <span>Обучение в своём темпе</span></div>
+    </aside>
+    <main class="main">
+      <header class="topbar"><button class="icon-btn mobile-menu" id="menu-toggle" aria-label="Открыть меню"><i data-lucide="menu"></i></button><div class="breadcrumbs"><span>Учебник</span><i data-lucide="chevron-right"></i><b id="crumb-current">Главная</b></div><div class="top-actions"><span class="level-pill"><i data-lucide="zap"></i> С нуля</span><button class="icon-btn" id="theme-toggle" aria-label="Переключить тему"><i data-lucide="sun"></i></button></div></header>
+      <section id="home-view" class="home-view">
+        <div class="hero"><div class="hero-copy"><div class="eyebrow"><span class="eyebrow-dot"></span> ПРАКТИЧЕСКИЙ КУРС · 18 ТЕМ</div><h1>Твой путь в<br><span class="highlight">Python</span> начинается здесь<span class="hero-period">.</span></h1><p>Без сложных слов и скучных лекций. Разбирайся на понятных примерах из жизни, смотри, как работает код, и закрепляй знания практикой.</p><div class="hero-actions"><button class="btn btn-primary" id="start-learning">Начать обучение <i data-lucide="arrow-up-right"></i></button><span class="hero-note"><i data-lucide="clock-3"></i> Учись в своём темпе</span></div></div><div class="code-art" aria-label="Пример кода Python"><div class="code-window"><div class="window-top"><span></span><span></span><span></span><label>hello_world.py</label></div><div class="code-lines"><div><em>1</em> <span class="code-purple">name</span> <span class="code-muted">=</span> <span class="code-green">input</span><span>(</span><span class="code-yellow">"Как тебя зовут? "</span><span>)</span></div><div><em>2</em></div><div><em>3</em> <span class="code-green">print</span><span>(</span><span class="code-yellow">f"Привет, {name}!"</span><span>)</span></div><div class="code-cursor-line"><em>4</em><span class="cursor"></span></div></div><div class="code-footer"><span><i data-lucide="circle-check"></i> Python 3</span><span>Готово к запуску</span></div></div><div class="floating-badge badge-top"><i data-lucide="check-circle-2"></i> Первый шаг</div><div class="floating-badge badge-bottom"><span class="badge-python">Py</span><span>Меньше зубрёжки<br><b>больше практики</b></span></div></div></div>
+        <div class="stats-grid"><div class="stat-card"><div class="stat-icon yellow"><i data-lucide="book-open"></i></div><div><strong>18</strong><span>последовательных тем</span></div></div><div class="stat-card"><div class="stat-icon green"><i data-lucide="code-2"></i></div><div><strong>Примеры</strong><span>с разбором каждой строки</span></div></div><div class="stat-card"><div class="stat-icon yellow"><i data-lucide="target"></i></div><div><strong>Практика</strong><span>задания после уроков</span></div></div><div class="stat-card"><div class="stat-icon green"><i data-lucide="bookmark-check"></i></div><div><strong>Твой темп</strong><span>прогресс сохраняется в браузере</span></div></div></div>
+        <div class="section-heading"><div><div class="eyebrow">ПРОГРАММА КУРСА</div><h2>От первой строки до своих проектов</h2><p>Выбирай следующую тему или двигайся по порядку.</p></div><div class="course-count"><span id="completed-count">0</span> / 18 завершено</div></div>
+        <div class="filters"><label class="search-box"><i data-lucide="search"></i><input id="lesson-search" type="search" placeholder="Найти тему..."></label><div class="filter-tabs" role="group" aria-label="Фильтр тем"><button class="filter-tab active" data-filter="all">Все темы</button><button class="filter-tab" data-filter="todo">Не пройдены</button><button class="filter-tab" data-filter="done">Завершены</button></div></div>
+        <div id="lesson-grid" class="lesson-grid"></div>
+        <div class="bottom-banner"><div class="banner-icon"><i data-lucide="lightbulb"></i></div><div><b>Совет начинающему</b><p>Не пытайся запомнить всё сразу. Запускай примеры, меняй значения и смотри, что произойдёт. Так программирование становится понятнее.</p></div><i data-lucide="sparkles" class="banner-spark"></i></div>
+        <footer class="site-footer"><span>PyStart <span class="accent">●</span> Учись создавать</span><span>Сделано для начинающих · Python 3</span></footer>
+      </section>
+      <section id="lesson-view" class="lesson-view hidden"></section>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
