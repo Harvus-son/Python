@@ -52,3 +52,24 @@
 ## Примечание
 
 Это учебный фронтенд-проект без серверной части и аккаунтов. Прогресс хранится в текущем браузере. Примеры кода нужно запускать в установленном Python или в выбранной онлайн-среде.
+
+
+## Improvements branch
+
+This branch adds a RU/EN interface selector and safer browser progress handling.
+
+### Language
+- Choose RU or EN from the header.
+- The selected interface language is remembered in this browser.
+- Course lesson explanations and examples remain in Russian in this iteration; the language selector currently translates the main navigation and learning interface labels.
+
+### Browser storage and privacy
+- Learning progress is validated before it is restored.
+- Invalid or malformed local progress data is ignored instead of crashing the app.
+- Storage write failures are caught and reported in the browser console.
+- The project does not require account credentials or collect personal information.
+
+### Security notes
+- Course content is authored in the repository. Do not insert untrusted user-provided text into HTML templates.
+- Browser localStorage is editable by the visitor and must not be treated as a trusted source or as proof of achievement.
+- This is a static client-side learning app; it does not provide server-side identity or anti-cheat guarantees.
