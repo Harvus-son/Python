@@ -22,7 +22,43 @@ const lessons = [
 const $ = (selector, root=document) => root.querySelector(selector);
 const nav = $("#lesson-nav"), grid = $("#lesson-grid"), home = $("#home-view"), lessonView = $("#lesson-view");
 let filter = "all", search = "";
-const completed = new Set(JSON.parse(localStorage.getItem("pystart-completed") || "[]"));
+function readCompleted(){
+  try {
+    const raw = localStorage.getItem("pystart-completed");
+    const parsed = raw ? JSON.parse(raw) : [];
+    if (!Array.isArray(parsed)) return new Set();
+    return new Set(parsed.filter(id => Number.isInteger(id) && lessons.some(lesson => lesson.id === id)));
+  } catch (error) {
+    console.warn("Не удалось прочитать прогресс:", error);
+    return new Set();
+  }
+}
+const completed = readCompleted();
+const translations = {
+  ru: {route:"Твой маршрут",progress:"Общий прогресс",begin:"Начни с первого урока",breadcrumb:"Учебник",home:"Главная",level:"С нуля",eyebrow:"ПРАКТИЧЕСКИЙ КУРС · 18 ТЕМ",heroTitle:"Твой путь в",heroText:"Без сложных слов и скучных лекций. Разбирайся на понятных примерах из жизни, смотри, как работает код, и закрепляй знания практикой.",start:"Начать обучение",yourPace:"Учись в своём темпе",program:"ПРОГРАММА КУРСА",courseTitle:"От первой строки до своих проектов",courseHint:"Выбирай следующую тему или двигайся по порядку.",completed:"завершено",search:"Найти тему...",all:"Все темы",todo:"Не пройдены",done:"Завершены",study:"Изучить",repeat:"Повторить",copy:"Копировать",copied:"Скопировано",theory:"Простыми словами",life:"ПРИМЕР ИЗ ЖИЗНИ",code:"Посмотри на код",practice:"Попробуй сам",tasks:"Практические задания",quiz:"Проверь себя",check:"Проверить ответ",next:"Следующая тема",back:"Все темы",markDone:"Отметить как пройденную",markTodo:"Отметить непройденным",correct:"Верно!",wrong:"Пока не совсем. Подумай ещё раз. Подсказка: ",choose:"Выбери один ответ, затем нажми «Проверить ответ».",noResults:"Темы не найдены",noResultsHint:"Попробуй изменить запрос или фильтр."},
+  en: {route:"YOUR PATH",progress:"Overall progress",begin:"Start with the first lesson",breadcrumb:"Course",home:"Home",level:"Beginner",eyebrow:"PRACTICAL COURSE · 18 TOPICS",heroTitle:"Your Python journey",heroText:"Learn with clear real-life examples, see how code works, and reinforce every idea with practice.",start:"Start learning",yourPace:"Learn at your own pace",program:"COURSE PROGRAM",courseTitle:"From your first line to your own projects",courseHint:"Choose a topic or follow the learning path.",completed:"completed",search:"Search topics...",all:"All topics",todo:"Not started",done:"Completed",study:"Study",repeat:"Review",copy:"Copy",copied:"Copied",theory:"In simple words",life:"REAL-LIFE EXAMPLE",code:"See the code",practice:"Try it yourself",tasks:"Practice tasks",quiz:"Check yourself",check:"Check answer",next:"Next topic",back:"All topics",markDone:"Mark as completed",markTodo:"Mark as not completed",correct:"Correct!",wrong:"Not quite. Try again. Hint: ",choose:"Choose an answer, then press “Check answer”.",noResults:"No topics found",noResultsHint:"Try changing your search or filter."}
+};
+let language = localStorage.getItem("pystart-language") === "en" ? "en" : "ru";
+const t = key => translations[language][key] || translations.ru[key] || key;
+function applyLanguage(){
+  document.documentElement.lang = language;
+  const select = $("#language-select"); if (select) select.value = language;
+  const set = (selector,key) => { const el=$(selector); if(el) el.textContent=t(key); };
+  set(".sidebar-label","route"); set(".progress-row span","progress");
+  set("#progress-caption", completed.size ? "begin" : "begin");
+  set(".breadcrumbs span","breadcrumb"); set("#crumb-current", location.hash.startsWith("#lesson-") ? $("#crumb-current").textContent : "home");
+  set(".level-pill","level"); set(".eyebrow","eyebrow");
+  const heroTitle=$(".hero h1"); if(heroTitle) heroTitle.textContent=language==="en"?"Your Python journey starts here.":"Твой путь в Python начинается здесь.";
+  const heroText=$(".hero-copy p"); if(heroText) heroText.textContent=t("heroText");
+  set("#start-learning","start"); set(".hero-note","yourPace");
+  const sectionEyebrow=$(".section-heading .eyebrow"); if(sectionEyebrow)sectionEyebrow.textContent=t("program");
+  const sectionTitle=$(".section-heading h2"); if(sectionTitle)sectionTitle.textContent=t("courseTitle");
+  const sectionHint=$(".section-heading p"); if(sectionHint)sectionHint.textContent=t("courseHint");
+  const searchInput=$("#lesson-search"); if(searchInput)searchInput.placeholder=t("search");
+  document.querySelectorAll(".filter-tab").forEach(btn=>btn.textContent=t(btn.dataset.filter==="all"?"all":btn.dataset.filter==="todo"?"todo":"done"));
+  renderGrid(); renderNav(); updateProgress();
+}
+
 const groups = [...new Set(lessons.map(item => item.group))];
 const icon = name => `<i data-lucide="${name}"></i>`;
 function renderIcons(){ if(window.lucide) lucide.createIcons(); }
@@ -38,7 +74,7 @@ function updateProgress(){
 }
 function renderGrid(){
   const filtered=lessons.filter(l=>(filter==="all"||filter==="todo"&&!completed.has(l.id)||filter==="done"&&completed.has(l.id))&&(l.title+" "+l.short+" "+l.group).toLowerCase().includes(search.toLowerCase()));
-  grid.innerHTML=filtered.length?filtered.map(l=>`<article class="lesson-card ${completed.has(l.id)?"completed":""}"><div class="card-top"><span class="lesson-icon ${l.tone}">${icon(l.icon)}</span><span class="lesson-number">${String(l.id).padStart(2,"0")} / 18</span></div><h3>${l.title}</h3><p>${l.short}</p><div class="card-meta">${icon("clock-3")} ${l.time}<span class="tag">${l.level}</span><button class="card-open" data-open="${l.id}">${completed.has(l.id)?"Повторить":"Изучить"} ${icon("arrow-up-right")}</button></div></article>`).join(""):'<div class="empty-state"><i data-lucide="search-x"></i><b>Темы не найдены</b><span>Попробуй изменить запрос или фильтр.</span></div>';
+  grid.innerHTML=filtered.length?filtered.map(l=>`<article class="lesson-card ${completed.has(l.id)?"completed":""}"><div class="card-top"><span class="lesson-icon ${l.tone}">${icon(l.icon)}</span><span class="lesson-number">${String(l.id).padStart(2,"0")} / 18</span></div><h3>${l.title}</h3><p>${l.short}</p><div class="card-meta">${icon("clock-3")} ${l.time}<span class="tag">${l.level}</span><button class="card-open" data-open="${l.id}">${completed.has(l.id)?t("repeat"):t("study")} ${icon("arrow-up-right")}</button></div></article>`).join(""):'<div class="empty-state"><i data-lucide="search-x"></i><b>'+t("noResults")+'</b><span>'+t("noResultsHint")+'</span></div>';
   renderIcons();
 }
 function codeBlock(code){
@@ -62,7 +98,7 @@ function renderLesson(id){
   <section class="content-block"><h2>${icon("target")} Попробуй сам</h2><div class="exercise-card"><div class="exercise-top"><span class="stat-icon yellow">${icon("pencil-line")}</span><h3>Практические задания</h3></div><p>Сделай задания по порядку. Если что-то не получается — вернись к примеру, поменяй его и попробуй ещё раз.</p><ol class="task-list">${taskHtml}</ol></div><div class="quiz"><h3>${icon("circle-help")} Проверь себя</h3><p>${l.question}</p><form id="quiz-form">${optionHtml}<button class="btn btn-secondary quiz-submit" type="submit">Проверить ответ ${icon("arrow-right")}</button></form><div id="quiz-feedback" class="quiz-feedback" aria-live="polite"></div></div></section>
   <div class="lesson-bottom-nav">${prevButton}${nextButton}</div>
   </article><aside class="lesson-aside"><div class="aside-card"><h3>Твой прогресс</h3><div class="aside-progress"><span style="width:${completed.size/lessons.length*100}%"></span></div><small>${completed.size} из ${lessons.length} тем завершено</small><button id="complete-lesson" class="btn ${completed.has(l.id)?"btn-secondary":"btn-primary"} complete-button">${completed.has(l.id)?"Отметить непройденным":"Отметить как пройденную"} ${icon(completed.has(l.id)?"rotate-ccw":"check")}</button></div><div class="aside-card"><h3>В этом уроке</h3><a class="aside-link" href="#lesson-view">${icon("book-open")} Теория</a><a class="aside-link" href="#lesson-view">${icon("code-2")} Пример кода</a><a class="aside-link" href="#lesson-view">${icon("target")} Практика и тест</a></div><div class="aside-card"><h3>Не спеши</h3><small>Лучший способ научиться — запускать код, менять его и наблюдать за результатом. Ошибки являются частью обучения.</small></div></aside></div>`;
-  $("#quiz-form").addEventListener("submit",e=>{e.preventDefault();const selected=new FormData(e.currentTarget).get("answer");const feedback=$("#quiz-feedback");if(selected===null){feedback.className="quiz-feedback bad";feedback.textContent="Выбери один ответ, затем нажми «Проверить ответ».";return;}if(Number(selected)===l.answer){feedback.className="quiz-feedback good";feedback.textContent="Верно! "+l.why;}else{feedback.className="quiz-feedback bad";feedback.textContent="Пока не совсем. Подумай ещё раз. Подсказка: "+l.why;}});
+  $("#quiz-form").addEventListener("submit",e=>{e.preventDefault();const selected=new FormData(e.currentTarget).get("answer");const feedback=$("#quiz-feedback");if(selected===null){feedback.className="quiz-feedback bad";feedback.textContent=t("choose");return;}if(Number(selected)===l.answer){feedback.className="quiz-feedback good";feedback.textContent=t("correct")+" "+l.why;}else{feedback.className="quiz-feedback bad";feedback.textContent=t("wrong")+l.why;}});
   $("#complete-lesson").addEventListener("click",()=>{if(completed.has(l.id))completed.delete(l.id);else completed.add(l.id);localStorage.setItem("pystart-completed",JSON.stringify([...completed]));updateProgress();renderGrid();renderLesson(l.id);});
   renderIcons();window.scrollTo({top:0,behavior:"smooth"});
 }
@@ -73,8 +109,10 @@ $("#start-learning").addEventListener("click",()=>openLesson(1));
 $("#lesson-search").addEventListener("input",e=>{search=e.target.value;renderGrid();});
 document.querySelectorAll(".filter-tab").forEach(btn=>btn.addEventListener("click",()=>{filter=btn.dataset.filter;document.querySelectorAll(".filter-tab").forEach(b=>b.classList.toggle("active",b===btn));renderGrid();}));
 $("#theme-toggle").addEventListener("click",()=>{document.body.classList.toggle("light-mode");localStorage.setItem("pystart-theme",document.body.classList.contains("light-mode")?"light":"dark");$("#theme-toggle").innerHTML=icon(document.body.classList.contains("light-mode")?"moon":"sun");renderIcons();});
+$("#language-select").addEventListener("change",e=>{language=e.target.value;try{localStorage.setItem("pystart-language",language);}catch(error){console.warn("Не удалось сохранить язык:",error);}applyLanguage();route();});
 $("#menu-toggle").addEventListener("click",()=>$("#sidebar").classList.toggle("open"));
 document.addEventListener("click",async e=>{const btn=e.target.closest("[data-copy]");if(!btn)return;const text=decodeURIComponent(btn.dataset.copy);try{await navigator.clipboard.writeText(text);btn.innerHTML=icon("check")+" Скопировано";renderIcons();setTimeout(()=>{btn.innerHTML=icon("copy")+" Копировать";renderIcons();},1500);}catch{btn.textContent="Выдели код вручную";}});
 if(localStorage.getItem("pystart-theme")==="light")document.body.classList.add("light-mode");
 route();
+applyLanguage();
 window.addEventListener("hashchange",route);
