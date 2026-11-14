@@ -60,6 +60,27 @@
     18:["Final project","Combine your knowledge in a small working program.","A project connects several topics into one useful program.","Start with a small version. Make the main scenario work first, then add improvements. Use functions to organise code, validate input, store data in lists or dictionaries, and use files for persistence. Split long code into smaller parts when it becomes difficult to understand.","A to-do list can show a menu, accept a choice, add tasks, mark them complete, and save the list to a file.","The list stores tasks, the function displays them, the loop repeats the menu, and conditions select an action.","Add a way to delete a task and save the list to a file.","What is the best way to start a project?","Start with a small working version and a clear main scenario."]
   };
 
+  const optionsEN = [
+    ["Execute written instructions","Draw a picture","Work only with the internet"],
+    ["Always an integer","The text entered by the user","A ready-made image"],
+    ["score == 1","score = score + 1","1 = score"],
+    ["Because input() returns text","Because int() prints the answer","Because age is always text"],
+    ["Assigns a value","Compares two values for equality","Multiplies numbers"],
+    ["At index 0","At index 1","At index -1"],
+    ["Deletes the whole list","Adds an item to the end of a list","Counts characters"],
+    ["user.name","user['name']","user(0)"],
+    ["A fallback when previous conditions are false","To repeat a loop","To create a list"],
+    ["When a loop has a condition that never becomes false","When print() is used","When a list is empty"],
+    ["Sends a value back from a function","Repeats a function forever","Creates a variable"],
+    ["try","except","finally"],
+    ["Reads a file","Appends content to a file","Deletes a file"],
+    ["To reuse code and functionality","To close the program","To create a variable"],
+    ["A random command","A sequence of steps for solving a problem","Only a mathematical formula"],
+    ["A concrete instance of a class","Always a string","An error in the code"],
+    ["Delete all parent methods","Reuse and extend a base class","Automatically fix every error"],
+    ["Start with the most complex feature","Start with a small working version","Copy a large program without testing"]
+  ];
+
   const extra = [
     ["Python выполняет код сверху вниз. Комментарии начинаются с # и не выполняются. Отступы важны: они показывают, какие строки относятся к одному блоку.","# Это комментарий\nprint('Первый запуск')\nprint('Второй шаг')"],
     ["print() умеет выводить несколько значений. Параметр sep меняет разделитель, а end — окончание вывода.","print('Python', 'это', 'интересно', sep=' | ')\nprint('Загрузка', end='...')\nprint('готово!')"],
@@ -167,7 +188,7 @@
     Object.assign(lesson, JSON.parse(JSON.stringify(originalLessons[lesson.id-1])));
     if(language==="en"){
       const d=lessonEN[lesson.id];
-      if(d){lesson.title=d[0];lesson.short=d[1];lesson.summary=d[2];lesson.theory=d[3];lesson.life=d[4];lesson.explain=d[5];lesson.tasks=[d[6], "Change the example and observe the output.", "Create a small program using this topic."];lesson.question=d[7];lesson.why=d[8];lesson.options=lesson.options.map((_,i)=>i===lesson.answer?d[8]:["Choose another option.","This is not the correct explanation.","Try again."][i%3]);}
+      if(d){lesson.title=d[0];lesson.short=d[1];lesson.summary=d[2];lesson.theory=d[3];lesson.life=d[4];lesson.explain=d[5];lesson.tasks=[d[6], "Change the example and observe the output.", "Create a small program using this topic."];lesson.question=d[7];lesson.why=d[8];lesson.options=optionsEN[lesson.id-1];}
     }
     originalRenderLesson(id);
     if(language==="en"){
