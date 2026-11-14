@@ -1,6 +1,7 @@
 (() => {
   const languageKey = "pystart-language";
   let language = localStorage.getItem(languageKey) || "ru";
+  const originalLessons = lessons.map(item => JSON.parse(JSON.stringify(item)));
   const labels = {
     ru: {
       home:"Главная", textbook:"Учебник", start:"Начать обучение", all:"Все темы", todo:"Не пройдены", done:"Завершены",
@@ -161,15 +162,15 @@
 
   const originalRenderLesson = renderLesson;
   renderLesson = function(id) {
-    originalRenderLesson(id);
     const lesson=lessons.find(x=>x.id===Number(id));
     if(!lesson)return;
+    Object.assign(lesson, JSON.parse(JSON.stringify(originalLessons[lesson.id-1])));
     if(language==="en"){
       const d=lessonEN[lesson.id];
-      if(d){
-        lesson.title=d[0];lesson.short=d[1];lesson.summary=d[2];lesson.theory=d[3];lesson.life=d[4];lesson.explain=d[5];lesson.tasks=[d[6], "Change the example and observe the output.", "Create a small program using this topic."];lesson.question=d[7];lesson.why=d[8];
-        lesson.options=lesson.options.map((_,i)=>i===lesson.answer?d[8]:["Choose another option.","This is not the correct explanation.","Try again."][i%3]);
-      }
+      if(d){lesson.title=d[0];lesson.short=d[1];lesson.summary=d[2];lesson.theory=d[3];lesson.life=d[4];lesson.explain=d[5];lesson.tasks=[d[6], "Change the example and observe the output.", "Create a small program using this topic."];lesson.question=d[7];lesson.why=d[8];lesson.options=lesson.options.map((_,i)=>i===lesson.answer?d[8]:["Choose another option.","This is not the correct explanation.","Try again."][i%3]);}
+    }
+    originalRenderLesson(id);
+    if(language==="en"){
       const t=labels.en;
       const head=lessonView.querySelector(".lesson-head");
       if(head){
