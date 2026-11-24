@@ -109,3 +109,37 @@ body{background:radial-gradient(ellipse at 85% 0%,rgba(213,183,127,.07),transpar
 .complete-button{background:#d5b77f;color:#272116}
 .tag{background:#2a374b;color:#c5cedb}
 button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #9bc6b1;outline-offset:3px}
+
+/* Contrast refinement + accessible light theme */
+:root{--bg:#0d1420;--panel:#1b2738;--panel2:#26354a;--border:#3b4a60;--text:#f3f6fb;--muted:#b4c0d0;--soft:#d0d9e5;--yellow:#dfc18a;--green:#91c4aa;--purple:#b3bce0;--red:#e2a0a4}
+body{background-color:var(--bg);color:var(--text)}
+.sidebar{background:#141f30;border-color:var(--border)}.topbar{background:rgba(13,20,32,.96);border-color:var(--border)}
+.progress-card,.stat-card,.lesson-card,.aside-card,.quiz,.search-box,.filter-tabs{background:#1b2738;border-color:#3b4a60}
+.lesson-card p,.content-block p,.content-block li,.hero-copy>p,.section-heading p,.card-meta,.progress-card small{color:#c0cad8}
+.nav-item{color:#c0cad8}.nav-group,.sidebar-label{color:#a8b5c7}
+.code-window{background:#080e18;border-color:#52627a}.code-lines{color:#e7edf6}.code-purple{color:#c4c9f0}.code-green{color:#a5d5b9}.code-yellow{color:#f0d39c}
+.code-block{background:#080e18;border-color:#46566d}.code-block-head{background:#202d40}
+.quiz-option{background:#26354a;color:#e8eef7;border-color:#485a73}.tag{background:#34445a;color:#e0e7f0}
+.search-box input::placeholder{color:#a6b3c5}.lesson-card:hover{border-color:#9aabbe}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #dfc18a;outline-offset:3px}
+body.light-mode{color-scheme:light;--bg:#f2f4f7;--panel:#fff;--panel2:#e9edf2;--border:#cbd4df;--text:#202b3a;--muted:#526174;--soft:#3c4a5d;--yellow:#8a6429;--green:#39785b;--purple:#586c9b;--red:#a34f58;background:#f2f4f7!important;color:#202b3a!important}
+.light-mode .sidebar{background:#e8edf3!important;border-color:#cbd4df!important}
+.light-mode .brand,.light-mode h1,.light-mode h2,.light-mode h3,.light-mode .breadcrumbs b,.light-mode .stat-card strong{color:#202b3a}
+.light-mode .brand small,.light-mode .sidebar-label,.light-mode .nav-group{color:#59677a}
+.light-mode .topbar{background:rgba(242,244,247,.96)!important;border-color:#cbd4df!important}
+.light-mode .progress-card,.light-mode .stat-card,.light-mode .lesson-card,.light-mode .aside-card,.light-mode .quiz,.light-mode .search-box,.light-mode .filter-tabs{background:#fff!important;border-color:#cbd4df!important;color:#263244!important;box-shadow:0 8px 22px rgba(31,45,65,.07)}
+.light-mode .hero{background:linear-gradient(120deg,#e3eaf2,#d9e3ed)!important;border-color:#cbd6e2!important}
+.light-mode .hero-copy>p,.light-mode .section-heading p,.light-mode .lesson-card p,.light-mode .content-block p,.light-mode .content-block li,.light-mode .card-meta,.light-mode .stat-card span,.light-mode .lesson-head>p{color:#4d5b6e!important}
+.light-mode .nav-item{color:#46566b}.light-mode .nav-item:hover,.light-mode .nav-item.active{background:#dce5ef!important;color:#24364e!important}.light-mode .nav-item.active{box-shadow:inset 3px 0 #8a6429}
+.light-mode .code-window,.light-mode .code-block{background:#172234!important;border-color:#35465d!important;color:#eef3fa}
+.light-mode .code-block-head,.light-mode .window-top{background:#223149!important;border-color:#40516a!important}.light-mode .code-lines{color:#edf2f8}
+.light-mode .quiz-option{background:#f0f3f7!important;color:#263244!important;border-color:#cbd4df!important}
+.light-mode .filter-tab.active{background:#e9dfca!important;color:#624719!important}.light-mode .tag{background:#e8edf3!important;color:#34445a!important}
+.light-mode .btn-primary,.light-mode .complete-button{background:#8a6429!important;color:#fff!important}
+.light-mode .btn-secondary,.light-mode .copy-btn{background:#e9edf3!important;color:#263244!important;border-color:#cbd4df!important}
+.light-mode .bottom-banner,.light-mode .exercise-card{background:#e8edf3!important;border-color:#cbd4df!important}
+.light-mode .life-card,.light-mode .tip-card{background:#e7f0ea!important;border-color:#c4d9cb!important;color:#284b38}
+.light-mode .life-card p,.light-mode .tip-card p{color:#385745!important}
+.light-mode .floating-badge{background:#fff!important;color:#34445a!important;border-color:#cbd4df!important}
+.light-mode .progress-track,.light-mode .aside-progress{background:#d6dee8}.light-mode .sidebar-bottom{border-color:#cbd4df;color:#59677a}
+.light-mode input{background:#fff!important;color:#202b3a!important;border-color:#cbd4df!important}
