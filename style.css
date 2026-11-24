@@ -54,3 +54,58 @@ body{background:radial-gradient(ellipse at 85% 0%,rgba(99,102,241,.09),transpare
 button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--green);outline-offset:3px}
 @media(max-width:850px){.sidebar{background:#0e1525}.topbar{background:rgba(11,16,32,.92)}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+
+/* Palette refinement — Python: muted gold + sage */
+:root{
+ --bg:#101522;--panel:#1a2232;--panel2:#222d40;--border:rgba(220,230,242,.10);
+ --text:#e8edf5;--muted:#9aa7ba;--soft:#c5cedb;
+ --yellow:#d5b77f;--green:#83b69e;--purple:#9caed2;--red:#d88f98;
+ --shadow:0 20px 52px rgba(0,0,0,.22);
+}
+body{background:radial-gradient(ellipse at 85% 0%,rgba(213,183,127,.07),transparent 36%),var(--bg);color:var(--text)}
+.sidebar{background:#141c2b;border-color:var(--border)}
+.brand-mark,.badge-python{background:#d5b77f;color:#242016}
+.brand-mark{box-shadow:0 8px 24px rgba(213,183,127,.12)}
+.progress-card,.stat-card,.lesson-card,.aside-card,.quiz,.search-box,.filter-tabs{background:linear-gradient(155deg,#202b3e,#1a2232);border-color:var(--border);box-shadow:var(--shadow)}
+.progress-row b,.course-count span,.highlight,.lesson-kicker,.content-block h2 svg,.card-open,.empty-state svg{color:#dfc58f}
+.progress-track,.aside-progress{background:#354052}
+.progress-track span,.aside-progress span{background:linear-gradient(90deg,#d5b77f,#83b69e)}
+.nav-item{color:#a7b2c4}.nav-item:hover,.nav-item.active{background:rgba(213,183,127,.11);color:#e8edf5}
+.nav-item.active{box-shadow:inset 2px 0 #d5b77f}
+.topbar{background:rgba(16,21,34,.91);border-color:var(--border)}
+.level-pill{border-color:rgba(213,183,127,.25);color:#dfc58f}
+.hero{background:radial-gradient(ellipse at 83% 50%,#35433f 0%,#29364a 40%,#1a2232 100%);border-color:rgba(213,183,127,.17)}
+.hero-copy>p,.section-heading p{color:#b5c0d0}
+.hero-period,.code-green{color:#9bc6b1}
+.btn-primary{background:#d5b77f;color:#272116;box-shadow:0 10px 25px rgba(213,183,127,.10)}
+.btn-secondary{background:#273348;border-color:var(--border)}
+.code-window{background:#111927;border-color:rgba(156,174,210,.19)}
+.code-purple{color:#b8bfe0}.code-yellow{color:#e2c68e}
+.window-top,.code-footer{border-color:var(--border)}
+.window-top>span:nth-child(2){background:#d5b77f}
+.window-top>span:nth-child(3){background:#83b69e}
+.floating-badge{background:#222d40;border-color:var(--border);color:#b7c2d1}
+.stat-icon.yellow,.lesson-icon{background:rgba(213,183,127,.12);color:#dfc58f}
+.stat-icon.green,.lesson-icon.green,.lesson-icon.purple{background:rgba(131,182,158,.12);color:#9bc6b1}
+.lesson-card:hover{border-color:rgba(213,183,127,.36)}
+.lesson-card.completed{border-color:rgba(131,182,158,.35)}
+.lesson-card p,.content-block p,.content-block li{color:#b5c0d0}
+.card-meta{border-color:var(--border);color:#9aa7ba}
+.filter-tab{color:var(--muted)}.filter-tab.active{background:rgba(213,183,127,.13);color:#dfc58f}
+.search-box input{color:var(--text)}.search-box input::placeholder{color:#8491a6}
+.bottom-banner,.exercise-card{background:linear-gradient(120deg,#26354a,#1a2232);border-color:rgba(213,183,127,.18)}
+.banner-icon{background:rgba(213,183,127,.12);color:#dfc58f}
+.life-card{background:rgba(131,182,158,.09);border-color:rgba(131,182,158,.20)}
+.life-label,.tip-card b{color:#9bc6b1}
+.life-card p{color:#d0d9e2}
+.code-block{background:#101725;border-color:var(--border)}
+.code-block-head{background:#202b3e;border-color:var(--border)}
+.copy-btn{background:#2a374b;border-color:var(--border);color:var(--text)}
+.tip-card{background:rgba(131,182,158,.08);border-left-color:#83b69e}
+.quiz-option{background:#222d40;border-color:var(--border);color:#cbd4e0}
+.quiz-option:hover{border-color:#d5b77f}
+.quiz-option input{accent-color:#d5b77f}
+.aside-card{border-radius:14px}
+.complete-button{background:#d5b77f;color:#272116}
+.tag{background:#2a374b;color:#c5cedb}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #9bc6b1;outline-offset:3px}
